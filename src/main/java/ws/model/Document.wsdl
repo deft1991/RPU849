@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://model.ws" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ax21="http://model.ws/xsd" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" targetNamespace="http://model.ws">
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.ws/xsd">
+            <xs:complexType name="DocValues">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="mnemoCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="period" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="regionCode" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="valueIndicator" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+        <xs:schema xmlns:ax22="http://model.ws/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.ws">
+            <xs:import namespace="http://model.ws/xsd"/>
+            <xs:element name="toString">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="toStringResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="setDocValues">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="docValues" nillable="true" type="ax22:DocValues"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDocValues">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDocValuesResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax22:DocValues"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="toStringRequest">
+        <wsdl:part name="parameters" element="ns:toString"/>
+    </wsdl:message>
+    <wsdl:message name="toStringResponse">
+        <wsdl:part name="parameters" element="ns:toStringResponse"/>
+    </wsdl:message>
+    <wsdl:message name="setDocValuesRequest">
+        <wsdl:part name="parameters" element="ns:setDocValues"/>
+    </wsdl:message>
+    <wsdl:message name="getDocValuesRequest">
+        <wsdl:part name="parameters" element="ns:getDocValues"/>
+    </wsdl:message>
+    <wsdl:message name="getDocValuesResponse">
+        <wsdl:part name="parameters" element="ns:getDocValuesResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="DocumentPortType">
+        <wsdl:operation name="toString">
+            <wsdl:input message="ns:toStringRequest" wsaw:Action="urn:toString"/>
+            <wsdl:output message="ns:toStringResponse" wsaw:Action="urn:toStringResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="setDocValues">
+            <wsdl:input message="ns:setDocValuesRequest" wsaw:Action="urn:setDocValues"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDocValues">
+            <wsdl:input message="ns:getDocValuesRequest" wsaw:Action="urn:getDocValues"/>
+            <wsdl:output message="ns:getDocValuesResponse" wsaw:Action="urn:getDocValuesResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="DocumentSoap11Binding" type="ns:DocumentPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="toString">
+            <soap:operation soapAction="urn:toString" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="setDocValues">
+            <soap:operation soapAction="urn:setDocValues" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getDocValues">
+            <soap:operation soapAction="urn:getDocValues" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="DocumentSoap12Binding" type="ns:DocumentPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="toString">
+            <soap12:operation soapAction="urn:toString" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="setDocValues">
+            <soap12:operation soapAction="urn:setDocValues" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getDocValues">
+            <soap12:operation soapAction="urn:getDocValues" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="DocumentHttpBinding" type="ns:DocumentPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="toString">
+            <http:operation location="toString"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="setDocValues">
+            <http:operation location="setDocValues"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getDocValues">
+            <http:operation location="getDocValues"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="Document">
+        <wsdl:port name="DocumentHttpSoap11Endpoint" binding="ns:DocumentSoap11Binding">
+            <soap:address location="http://localhost:8080//services/ws/model/Document"/>
+        </wsdl:port>
+        <wsdl:port name="DocumentHttpSoap12Endpoint" binding="ns:DocumentSoap12Binding">
+            <soap12:address location="http://localhost:8080//services/ws/model/Document"/>
+        </wsdl:port>
+        <wsdl:port name="DocumentHttpEndpoint" binding="ns:DocumentHttpBinding">
+            <http:address location="http://localhost:8080//services/ws/model/Document"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
