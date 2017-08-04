@@ -5,7 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.sql.Timestamp;
 
 @Entity
@@ -57,6 +59,7 @@ public class SysTalon {
 
     @Basic
     @Column(name = "fdate", nullable = true)
+    @Temporal(TemporalType.DATE)
     public Date getFdate() {
         return fdate;
     }
@@ -207,6 +210,7 @@ public class SysTalon {
 
     @Basic
     @Column(name = "tdate", nullable = true)
+    @Temporal(TemporalType.DATE)
     public Date getTdate() {
         return tdate;
     }
@@ -247,6 +251,7 @@ public class SysTalon {
 
     @Basic
     @Column(name = "vdate", nullable = true)
+    @Temporal(TemporalType.DATE)
     public Date getVdate() {
         return vdate;
     }

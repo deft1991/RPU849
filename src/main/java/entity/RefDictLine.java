@@ -36,13 +36,29 @@ public class RefDictLine {
     @Column(name = "ordinal", nullable = true)
     private Long ordinal;
 
-    @ManyToOne
-    @JoinColumn(name = "dict_id")
-    RefDict prkzCode;
+    @ManyToOne(targetEntity = RefDict.class)
+    @JoinColumn(name = "dict_id", insertable = false, updatable = false)
+    private RefDict prkzCode;
 
-    @ManyToOne
-    @JoinColumn(name = "dict_id")
-    RefDict statusCode;
+    @ManyToOne(targetEntity = RefDict.class)
+    @JoinColumn(name = "dict_id", insertable = false, updatable = false)
+    private RefDict statusCode;
+
+    public RefDict getPrkzCode() {
+        return prkzCode;
+    }
+
+    public void setPrkzCode(RefDict prkzCode) {
+        this.prkzCode = prkzCode;
+    }
+
+    public RefDict getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(RefDict statusCode) {
+        this.statusCode = statusCode;
+    }
 
     public long getId() {
         return id;

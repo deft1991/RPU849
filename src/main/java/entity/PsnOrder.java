@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "psn_order", schema = "public", catalog = "develop")
@@ -118,16 +118,16 @@ public class PsnOrder {
     @Column(name = "sys_id", nullable = true, length = 100)
     private String sysId;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = RefDictLine.class)
     @JoinColumn(name = "prkz_id")
     private RefDictLine prkz;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = RefDictLine.class)
     @JoinColumn(name = "status_id")
     private RefDictLine status;
 
     // личное дело
-    @ManyToOne
+    @ManyToOne(targetEntity = PsnKpy.class)
     @JoinColumn(name = "kpy_id")
     private PsnKpy kpy;
 

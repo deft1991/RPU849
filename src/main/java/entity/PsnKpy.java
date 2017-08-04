@@ -129,8 +129,8 @@ public class PsnKpy {
     @Column(name = "tpr", nullable = true, length = 100)
     private String tpr;
 
-    @ManyToOne
-    @JoinColumn(name = "sys_id")
+    @ManyToOne(targetEntity = SysTalon.class)
+    @JoinColumn(name = "sys_id", insertable = false, updatable = false)
     private SysTalon sysTalon;
 
     public SysTalon getTalon() {
