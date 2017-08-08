@@ -32,7 +32,7 @@ public class HibernateSessionFactory {
 
 
     public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+        return buildSessionFactory();
     }
 
     public static void shutdown() {

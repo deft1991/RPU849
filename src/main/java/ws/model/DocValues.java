@@ -11,13 +11,13 @@ public class DocValues implements Serializable {
 
     private String period;
     private String mnemoCode;
-    private String regionCode;
-    private String valueIndicator;
+    private int regionCode;
+    private int valueIndicator;
 
     public DocValues() {
     }
 
-    public DocValues(String period, String mnemoCode, String regionCode, String valueIndicator) {
+    public DocValues(String period, String mnemoCode, int regionCode, int valueIndicator) {
         this.period = period;
         this.mnemoCode = mnemoCode;
         this.regionCode = regionCode;
@@ -40,19 +40,19 @@ public class DocValues implements Serializable {
         this.mnemoCode = mnemoCode;
     }
 
-    public String getRegionCode() {
+    public Integer getRegionCode() {
         return regionCode;
     }
 
-    public void setRegionCode(String regionCode) {
+    public void setRegionCode(Integer regionCode) {
         this.regionCode = regionCode;
     }
 
-    public String getValueIndicator() {
+    public Integer getValueIndicator() {
         return valueIndicator;
     }
 
-    public void setValueIndicator(String valueIndicator) {
+    public void setValueIndicator(Integer valueIndicator) {
         this.valueIndicator = valueIndicator;
     }
 

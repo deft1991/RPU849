@@ -3,11 +3,14 @@ package entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.sql.Date;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 @Table(name = "psn_kpy", schema = "public", catalog = "develop")
@@ -23,6 +26,7 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "doc_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date docDate;
 
     @Basic
@@ -31,10 +35,12 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "obr_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date obrDate;
 
     @Basic
     @Column(name = "pz_close_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date pzCloseDate;
 
     @Basic
@@ -43,6 +49,7 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "close_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date closeDate;
 
     @Basic
@@ -51,6 +58,7 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "unempl_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date unemplDate;
 
     @Basic
@@ -67,6 +75,7 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "order_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date orderDate;
 
     @Basic
@@ -83,6 +92,7 @@ public class PsnKpy {
 
     @Basic
     @Column(name = "end_date", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
 
     @Basic
@@ -130,7 +140,7 @@ public class PsnKpy {
     private String tpr;
 
     @ManyToOne(targetEntity = SysTalon.class)
-    @JoinColumn(name = "sys_id", insertable = false, updatable = false)
+    @JoinColumn(name = "sys_id", referencedColumnName = "sys_id", insertable = false, updatable = false)
     private SysTalon sysTalon;
 
     public SysTalon getTalon() {

@@ -2,9 +2,6 @@ package ws.soap;
 
 import dataProcessing.DataProcess;
 import dto.SendObj;
-import hibernate.HibernateSessionFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import utils.Util;
 import ws.model.DocValues;
 import ws.model.Document;
@@ -42,7 +39,12 @@ public class HelloSoap implements WebserviceSEI {
             Date startPeriod = Util.parseStringToDateByFormat(dates[0], "yyyy-MM-dd");
             Date endPeriod = Util.parseStringToDateByFormat(dates[1], "yyyy-MM-dd");
             List<SendObj> docValues = DataProcess.getValuesForUnEmplPeriod(startPeriod, endPeriod, mnemoCode);
-//            doc.setDocValues(docValues);
+            List<DocValues> forSend = new ArrayList<>();
+            for (SendObj docValue : docValues) {
+                forSend.add(new DocValues(period,mnemoCode,docValue.getRegion(),docValue.getCount()));
+            }
+
+            doc.setDocValues(forSend);
         } catch (ParseException e) {
             e.printStackTrace();
         }

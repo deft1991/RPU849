@@ -2,6 +2,7 @@ package ws.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created for JavaStudy.ru on 12.06.2016.
@@ -9,20 +10,20 @@ import java.io.Serializable;
 @XmlRootElement(name = "document")
 public class Document implements Serializable {
 
-    private DocValues docValues;
+    private List<DocValues> docValues;
 
     public Document() {
     }
 
-    public Document(DocValues docValues) {
+    public Document(List<DocValues> docValues) {
         this.docValues = docValues;
     }
 
-    public DocValues getDocValues() {
+    public List<DocValues> getDocValues() {
         return docValues;
     }
 
-    public void setDocValues(DocValues docValues) {
+    public void setDocValues(List<DocValues> docValues) {
         this.docValues = docValues;
     }
 

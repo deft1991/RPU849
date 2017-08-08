@@ -5,7 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,7 +35,7 @@ public class PsnOrder {
     private String dopInfo;
 
     @Basic
-    @Column(name = "duration", nullable = true, precision = 2)
+    @Column(name = "duration", nullable = true, precision = 17, scale = 2)
     private BigDecimal duration;
 
     @Basic
@@ -74,7 +76,7 @@ public class PsnOrder {
     private Date regDate;
 
     @Basic
-    @Column(name = "region_coeff", nullable = true, precision = 2)
+    @Column(name = "region_coeff", nullable = true, precision = 17, scale = 2)
     private BigDecimal regionCoeff;
 
     @Basic
@@ -87,7 +89,7 @@ public class PsnOrder {
     private Date startDate;
 
     @Basic
-    @Column(name = "summ", nullable = true, precision = 2)
+    @Column(name = "summ", nullable = true, precision = 17, scale = 2)
     private BigDecimal summ;
 
     @Basic
@@ -107,7 +109,7 @@ public class PsnOrder {
     private Long totalStajYears;
 
     @Basic
-    @Column(name = "zp", nullable = true, precision = 2)
+    @Column(name = "zp", nullable = true, precision = 17, scale = 2)
     private BigDecimal zp;
 
     @Basic

@@ -13,7 +13,7 @@ import java.util.List;
 public class DataProcess {
     private static Session session;
 
-    static {
+    private static void createBDConnection() {
         // создаем коннект к БД (сессию для хибера)
         System.out.println("Try create connection to BD");
         session = HibernateSessionFactory.getSessionFactory().openSession();
@@ -25,35 +25,41 @@ public class DataProcess {
             List<SendObj> sendObjList = new ArrayList<>();
             Transaction tx = null;
             try {
-                List<?> objList = new ArrayList<>();
+                // создаем коннект к БД (сессию для хибера)
+                createBDConnection();
+                List<Object[]> objList;
                 Query query = session.createQuery("" +
-                        "select kpy.sysTalon.rhdRegion, count (*) " +
-                        "from PsnOrder " +
-                        "where startDate >= :startPeriod " +
-                        "and endDate <= :endPeriod " +
+                        "select po.kpy.sysTalon.rhdRegion " +
+                        ", count (*) " +
+                        "from PsnOrder po " +
+                        "where po.startDate >= :startPeriod " +
+                        "and po.endDate <= :endPeriod " +
                         "and prkz.prkzCode.code = :prkzCode " +
                         "and prkz.code = :codeTvelve " +
                         "and status.statusCode.code = :statusCode " +
                         "and  status.code = :codeOne " +
-                        "group by kpy.sysTalon.rhdRegion");
+                        "group by po.kpy.sysTalon.rhdRegion");
                 query.setDate("startPeriod", startPeriod);
-                query.setDate("endPeriod", startPeriod);
+                query.setDate("endPeriod", endPeriod);
                 query.setString("prkzCode", "ПРКЗ");
-                query.setString("statusCode", "СТП");
                 query.setString("codeTvelve", "12");
+                query.setString("statusCode", "СТП");
                 query.setString("codeOne", "1");
-                query.setMaxResults(10);
-                tx = session.beginTransaction();
                 objList = query.list();
-                for (Object o : objList) {
-                    SendObj sendObj = (SendObj) o;
+                for (Object[] o : objList) {
+                    SendObj sendObj = new SendObj(mnemoCode,startPeriod,endPeriod,Integer.parseInt(o[0].toString()),Integer.parseInt(o[1].toString()));
                     sendObjList.add(sendObj);
                 }
+
             } catch (Exception e) {
-                if (tx != null) {
-                    tx.rollback();
-                    tx.commit();
+                if (session != null) {
+                    session.getTransaction().begin();
+                    session.getTransaction().rollback();
+                    session.flush();
+                    session.close();
                 }
+            }finally {
+                    HibernateSessionFactory.shutdown();
             }
             return sendObjList;
         }

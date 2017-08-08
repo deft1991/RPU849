@@ -12,6 +12,14 @@ public class SendObj {
     public SendObj() {
     }
 
+    public SendObj(String mnemocode, Date startDate, Date endDate, int region, int count) {
+        this.mnemocode = mnemocode;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.region = region;
+        this.count = count;
+    }
+
     public String getMnemocode() {
         return mnemocode;
     }
