@@ -19,12 +19,6 @@ import java.util.List;
         serviceName = "HelloSoap")
 public class HelloSoap implements WebserviceSEI {
 
-
-    @Override
-    public String testService() {
-        return "Hello from SOAP Webservice!";
-    }
-
     @Override
     public String sayHelloTo(String text) {
         return "Hello to " + text;
@@ -32,16 +26,15 @@ public class HelloSoap implements WebserviceSEI {
 
     //todo метод который будет возвращать документ с листом параметров
     @Override
-    public Document getDocuments(String period, String mnemoCode) {
+    public Document getDocuments(String dateFrom, String dateTo, String mnemoCode) {
         Document doc = new Document();
         try {
-            String[] dates = period.split(":");
-            Date startPeriod = Util.parseStringToDateByFormat(dates[0], "yyyy-MM-dd");
-            Date endPeriod = Util.parseStringToDateByFormat(dates[1], "yyyy-MM-dd");
+            Date startPeriod = modifyDateFromClient(dateFrom);
+            Date endPeriod = modifyDateFromClient(dateTo);
             List<SendObj> docValues = DataProcess.getValuesForUnEmplPeriod(startPeriod, endPeriod, mnemoCode);
             List<DocValues> forSend = new ArrayList<>();
             for (SendObj docValue : docValues) {
-                forSend.add(new DocValues(period,mnemoCode,docValue.getRegion(),docValue.getCount()));
+                forSend.add(new DocValues(dateFrom, dateTo, mnemoCode, docValue.getRegion(), docValue.getCount()));
             }
 
             doc.setDocValues(forSend);
@@ -49,5 +42,13 @@ public class HelloSoap implements WebserviceSEI {
             e.printStackTrace();
         }
         return doc;
+    }
+
+    private Date modifyDateFromClient(String dateFromClient) throws ParseException {
+         Date date = null;
+        if (!"".equalsIgnoreCase(dateFromClient) && dateFromClient != null) {
+            date = Util.parseStringToDateByFormat(dateFromClient, "yyyy-MM-dd");
+        }
+        return date;
     }
 }

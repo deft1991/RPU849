@@ -18,12 +18,9 @@ import javax.jws.WebService;
 @WebService
 public interface WebserviceSEI {
 
-    @WebMethod//annotation optional and is mainly used to provide a name attribute to the public method in wsdl
-    String testService();
-
     @WebMethod
     String sayHelloTo(@WebParam(name = "text") String text);
 
     @WebMethod
-    Document getDocuments(String period, String mnemoCode);
+    Document getDocuments(String dateFrom, String dateTo, String mnemoCode);
 }

@@ -31,7 +31,7 @@ public class Document implements Serializable {
     @Override
     public String toString() {
         return "Document{" +
-                ", docValues=" + docValues +
+                "docValues=" + docValues +
                 '}';
     }
 }

@@ -9,7 +9,8 @@ import java.io.Serializable;
 @XmlRootElement(name = "goods")
 public class DocValues implements Serializable {
 
-    private String period;
+    private String dateFrom;
+    private String dateTo;
     private String mnemoCode;
     private int regionCode;
     private int valueIndicator;
@@ -17,19 +18,36 @@ public class DocValues implements Serializable {
     public DocValues() {
     }
 
-    public DocValues(String period, String mnemoCode, int regionCode, int valueIndicator) {
-        this.period = period;
+    public DocValues(String dateFrom, String dateTo, String mnemoCode, int regionCode, int valueIndicator) {
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
         this.mnemoCode = mnemoCode;
         this.regionCode = regionCode;
         this.valueIndicator = valueIndicator;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getDateFrom() {
+        return dateFrom;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setDateFrom(String dateFrom) {
+        this.dateFrom = dateFrom;
+    }
+
+    public String getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(String dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    public void setRegionCode(int regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    public void setValueIndicator(int valueIndicator) {
+        this.valueIndicator = valueIndicator;
     }
 
     public String getMnemoCode() {
@@ -44,10 +62,6 @@ public class DocValues implements Serializable {
         return regionCode;
     }
 
-    public void setRegionCode(Integer regionCode) {
-        this.regionCode = regionCode;
-    }
-
     public Integer getValueIndicator() {
         return valueIndicator;
     }
@@ -59,7 +73,8 @@ public class DocValues implements Serializable {
     @Override
     public String toString() {
         return "DocValues{" +
-                ", period=" + period +
+                " dateFrom=" + dateFrom +
+                " dateTo=" + dateTo +
                 ", mnemoCode='" + mnemoCode + '\'' +
                 ", regionCode='" + regionCode + '\'' +
                 ", valueIndicator='" + valueIndicator + '\'' +
