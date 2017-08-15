@@ -22,33 +22,29 @@ public class DataProcess {
     public static List<SendObj> getValuesForMnemoCode(Date startPeriod, Date endPeriod, String mnemoCode) throws Exception {
         List<SendObj> sendObjList = null;
         createBDConnection();
+        Query query = null;
         switch (mnemoCode) {
-            case "UnEmplDateFrom": {
-                Query query = getQueryForUnEmplDateFrom(startPeriod);
-                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+            case "UnEmplDateFrom":
+                query = getQueryForUnEmplDateFrom(startPeriod);
                 break;
-            }
-            case "UnEmplPeriod": {
-                Query query = getQueryForUnEmplPeriod(startPeriod, endPeriod);
-                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+            case "UnEmplPeriod":
+                query = getQueryForUnEmplPeriod(startPeriod, endPeriod);
                 break;
-            }
-            case "UnEmplDateEnd": {
-                Query query = getQueryForUnEmplDateEnd(endPeriod);
-                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+            case "UnEmplDateEnd":
+                query = getQueryForUnEmplDateEnd(endPeriod);
                 break;
-            }
-            case "EmplNeed": {
-                Query query = getQueryForEmplNeed(startPeriod, endPeriod);
-                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+            case "EmplNeed":
+                query = getQueryForEmplNeed(startPeriod, endPeriod);
                 break;
-            }
-            case "EmplNeedDateFrom": {
-                Query query = getQueryForEmplNeedDateFrom(startPeriod);
-                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+            case "EmplNeedDateFrom":
+                query = getQueryForEmplNeedDateFromOrDateEnd(startPeriod);
                 break;
-            }
+            case "EmplNeedDateEnd":
+                query = getQueryForEmplNeedDateFromOrDateEnd(endPeriod);
+                break;
+
         }
+        sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
         return sendObjList;
     }
 
@@ -200,17 +196,17 @@ public class DataProcess {
         return hql.toString();
     }
 
-    private static Query getQueryForEmplNeedDateFrom(Date startPeriod) throws Exception {
-        if (startPeriod != null) {
+    private static Query getQueryForEmplNeedDateFromOrDateEnd(Date date) throws Exception {
+        if (date != null) {
             Query query = session.createQuery("" +
                     "select his.sysTalon.rhdRegion, " +
                     "count(his.curNeedNo) - count(his.jobNo) " +
                     "from LglVacancyHistory his " +
-                    "where his.vacancy.regDate <= :startPeriod " +
-                    "and (his.vacancy.closeDate is null or his.vacancy.closeDate > :startPeriod) " +
-                    "and   his.editDate <= :startPeriod " +
+                    "where his.vacancy.regDate <= :date " +
+                    "and (his.vacancy.closeDate is null or his.vacancy.closeDate > :date) " +
+                    "and   his.editDate <= :date " +
                     "group by his.sysTalon.rhdRegion");
-            query.setDate("startPeriod",startPeriod);
+            query.setDate("date", date);
             return query;
         } else throw new Exception("startPeriod can be null");
     }
