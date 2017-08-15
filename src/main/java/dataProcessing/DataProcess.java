@@ -34,7 +34,12 @@ public class DataProcess {
                 break;
             }
             case "UnEmplDateEnd": {
-                Query query = getQueryForUnEmplDateEnd(startPeriod, endPeriod);
+                Query query = getQueryForUnEmplDateEnd(endPeriod);
+                sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
+                break;
+            }
+            case "EmplNeed": {
+                Query query = getQueryForEmplNeed(startPeriod, endPeriod);
                 sendObjList = getSendObjs(query, startPeriod, endPeriod, mnemoCode);
                 break;
             }
@@ -54,11 +59,11 @@ public class DataProcess {
     }
 
 
-    private static Query getQueryForUnEmplDateEnd(Date startPeriod, Date endPeriod) {
+    private static Query getQueryForUnEmplDateEnd(Date endPeriod) {
         String hql = createHQLStringForUnEmplDateEnd(endPeriod);
         Query query = session.createQuery(hql);
-        if (hql.contains("startPeriod")) {
-            query.setDate("startPeriod", startPeriod);
+        if (hql.contains("endPeriod")) {
+            query.setDate("endPeriod", endPeriod);
         }
         query.setString("codeTwelve", "12");
         query.setString("codeEight", "8");
@@ -160,6 +165,40 @@ public class DataProcess {
                 .append("and  status.code = :codeOne ")
                 .append("group by po.kpy.sysTalon.rhdRegion");
 
+        return hql.toString();
+    }
+
+
+    private static Query getQueryForEmplNeed(Date startPeriod, Date endPeriod) {
+        String hql = createHQLStringForEmplNeed(startPeriod, endPeriod);
+        Query query = session.createQuery("" +
+                "select his.sysTalon.rhdRegion, " +
+                "count (his.curNeedNo) " +
+                "from LglVacancyHistory his " +
+                "where  his.editDate >= :startPeriod " +
+                "and his.editDate <= :endPeriod " +
+                "group by his.sysTalon.rhdRegion");
+        if (hql.contains("startPeriod"))
+            query.setDate("startPeriod", startPeriod);
+        if (hql.contains("endPeriod"))
+            query.setDate("endPeriod", endPeriod);
+        return query;
+    }
+
+    private static String createHQLStringForEmplNeed(Date startPeriod, Date endPeriod) {
+        StringBuilder hql = new StringBuilder()
+                .append("select his.sysTalon.rhdRegion, ")
+                .append("count (his.curNeedNo) ")
+                .append("from LglVacancyHistory his ")
+                .append("where");
+        if (startPeriod != null) {
+            hql.append(" his.editDate >= :startPeriod ");
+        }
+        if (startPeriod != null && endPeriod != null)
+            hql.append("and his.editDate <= :endPeriod ");
+        else if (endPeriod != null)
+            hql.append(" his.editDate <= :endPeriod ");
+        hql.append(" group by his.sysTalon.rhdRegion ");
         return hql.toString();
     }
 }

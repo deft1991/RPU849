@@ -40,7 +40,10 @@ public class JavaStudyWS {
         ((BindingProvider) webserviceSEI).getRequestContext().put("com.sun.xml.ws.request.timeout", 3 * 60 * 10000);
 //        Document result = webserviceSEI.getDocuments("2017-09-10","2017-10-10", "UnEmplDateFrom"); // 1
 //        Document result = webserviceSEI.getDocuments("2012-09-10","2012-10-10", "UnEmplPeriod"); // 2
-        Document result = webserviceSEI.getDocuments("2017-09-10","2017-10-10", "UnEmplDateEnd"); // 3
+//        Document result = webserviceSEI.getDocuments("2017-09-10","2017-10-10", "UnEmplDateEnd"); // 3
+//        Document result = webserviceSEI.getDocuments("2016-09-10","2016-09-11", "EmplNeed"); // 3
+        Document result = webserviceSEI.getDocuments("2016-09-10","2016-09-11", "EmplNeedDateFrom"); // 3
+
         webserviceSEI.sayHelloTo("Golitsyn");
         System.out.println("Result: " + result);
     }

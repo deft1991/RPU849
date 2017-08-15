@@ -34,7 +34,6 @@ public class HelloSoap implements WebserviceSEI {
             for (SendObj docValue : docValues) {
                 forSend.add(new DocValues(dateFrom, dateTo, mnemoCode, docValue.getRegion(), docValue.getCount()));
             }
-
             doc.setDocValues(forSend);
         } catch (Exception e) {
             e.printStackTrace();
