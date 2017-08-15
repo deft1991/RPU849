@@ -52,6 +52,10 @@ public class LglVacancyHistory {
     @JoinColumn(name = "sys_id", referencedColumnName = "sys_id", insertable = false, updatable = false)
     private SysTalon sysTalon;
 
+    @ManyToOne(targetEntity = LglVacancy.class)
+    @JoinColumn(name = "vacancy_id")
+    private LglVacancy vacancy;
+
     public long getId() {
         return id;
     }
@@ -122,5 +126,13 @@ public class LglVacancyHistory {
 
     public void setSysTalon(SysTalon sysTalon) {
         this.sysTalon = sysTalon;
+    }
+
+    public LglVacancy getVacancy() {
+        return vacancy;
+    }
+
+    public void setVacancy(LglVacancy history) {
+        this.vacancy = history;
     }
 }
