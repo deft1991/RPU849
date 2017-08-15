@@ -10,9 +10,6 @@ import ws.soap.WebserviceSEI;
 
 import javax.xml.ws.BindingProvider;
 
-/**
- * Created for JavaStudy.ru on 09.06.2016.
- */
 public class JavaStudyWS {
 
     public static void main(String[] args) {
@@ -23,10 +20,8 @@ public class JavaStudyWS {
      * create client and test soap service
      */
     private static void testSOAPFromClient() {
-//        String soapServiceUrl = "http://192.168.1.195/soap/webserviceSEI?period=2017-08-03&mnemoCode=UnEmplPeriod";
         String soapServiceUrl = "http://192.168.1.195:8080/soap/webserviceSEI";
 //        String soapServiceUrl = "http://localhost:8080/soap/webserviceSEI";
-//        String wsdl = "http://localhost:8080/soap/webserviceSEI?wsdl";
 
         JaxWsProxyFactoryBean factoryBean = new JaxWsProxyFactoryBean();
         factoryBean.setServiceClass(WebserviceSEI.class);
@@ -43,7 +38,9 @@ public class JavaStudyWS {
 
         http.setClient(httpClientPolicy);
         ((BindingProvider) webserviceSEI).getRequestContext().put("com.sun.xml.ws.request.timeout", 3 * 60 * 10000);
-        Document result = webserviceSEI.getDocuments("","2017-10-10", "UnEmplPeriod");
+//        Document result = webserviceSEI.getDocuments("2017-09-10","2017-10-10", "UnEmplDateFrom"); // 1
+//        Document result = webserviceSEI.getDocuments("2012-09-10","2012-10-10", "UnEmplPeriod"); // 2
+        Document result = webserviceSEI.getDocuments("2017-09-10","2017-10-10", "UnEmplDateEnd"); // 3
         webserviceSEI.sayHelloTo("Golitsyn");
         System.out.println("Result: " + result);
     }

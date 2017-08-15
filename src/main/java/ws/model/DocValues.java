@@ -42,12 +42,12 @@ public class DocValues implements Serializable {
         this.dateTo = dateTo;
     }
 
-    public void setRegionCode(int regionCode) {
-        this.regionCode = regionCode;
+    public Integer getRegionCode() {
+        return regionCode;
     }
 
-    public void setValueIndicator(int valueIndicator) {
-        this.valueIndicator = valueIndicator;
+    public void setRegionCode(Integer regionCode) {
+        this.regionCode = regionCode;
     }
 
     public String getMnemoCode() {
@@ -56,10 +56,6 @@ public class DocValues implements Serializable {
 
     public void setMnemoCode(String mnemoCode) {
         this.mnemoCode = mnemoCode;
-    }
-
-    public Integer getRegionCode() {
-        return regionCode;
     }
 
     public Integer getValueIndicator() {

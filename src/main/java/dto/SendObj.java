@@ -3,11 +3,11 @@ package dto;
 import java.util.Date;
 
 public class SendObj {
-    String mnemocode;
-    Date startDate;
-    Date endDate;
-    int region;
-    int count;
+    private String mnemocode;
+    private Date startDate;
+    private Date endDate;
+    private int region;
+    private int count;
 
     public SendObj() {
     }

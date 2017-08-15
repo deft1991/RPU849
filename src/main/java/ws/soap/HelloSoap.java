@@ -2,6 +2,7 @@ package ws.soap;
 
 import dataProcessing.DataProcess;
 import dto.SendObj;
+import hibernate.HibernateSessionFactory;
 import utils.Util;
 import ws.model.DocValues;
 import ws.model.Document;
@@ -12,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created for JavaStudy.ru on 10.06.2016.
- */
 @WebService(endpointInterface = "ws.soap.WebserviceSEI",
         serviceName = "HelloSoap")
 public class HelloSoap implements WebserviceSEI {
@@ -31,15 +29,17 @@ public class HelloSoap implements WebserviceSEI {
         try {
             Date startPeriod = modifyDateFromClient(dateFrom);
             Date endPeriod = modifyDateFromClient(dateTo);
-            List<SendObj> docValues = DataProcess.getValuesForUnEmplPeriod(startPeriod, endPeriod, mnemoCode);
+            List<SendObj> docValues = DataProcess.getValuesForMnemoCode(startPeriod, endPeriod, mnemoCode);
             List<DocValues> forSend = new ArrayList<>();
             for (SendObj docValue : docValues) {
                 forSend.add(new DocValues(dateFrom, dateTo, mnemoCode, docValue.getRegion(), docValue.getCount()));
             }
 
             doc.setDocValues(forSend);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            HibernateSessionFactory.shutdown();
         }
         return doc;
     }
