@@ -23,8 +23,8 @@ public class SysTalon {
     private long version;
 
     @Basic
-    @Column(name = "fdate", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "fdate", nullable = true)
     private Date fdate;
 
     @Basic
@@ -84,6 +84,7 @@ public class SysTalon {
     private Timestamp sysUpdated;
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "tdate", nullable = true)
     private Date tdate;
 
@@ -100,8 +101,8 @@ public class SysTalon {
     private String txtSchema;
 
     @Basic
-    @Column(name = "vdate", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "vdate", nullable = true)
     private Date vdate;
 
     @Basic

@@ -90,8 +90,8 @@ public class PsnKpy {
     private String szn;
 
     @Basic
-    @Column(name = "end_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "end_date", nullable = true)
     private Date endDate;
 
     @Basic

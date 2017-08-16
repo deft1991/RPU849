@@ -30,6 +30,9 @@ public class DataProcess {
             case "UnEmplPeriod":
                 query = getQueryForUnEmplPeriod(startPeriod, endPeriod);
                 break;
+            case "UnEmplDismissed":
+                query = getQueryForUnEmplDismissed(startPeriod, endPeriod);
+                break;
             case "UnEmplDateEnd":
                 query = getQueryForUnEmplDateEnd(endPeriod);
                 break;
@@ -48,17 +51,36 @@ public class DataProcess {
         return sendObjList;
     }
 
-    private static List<SendObj> getSendObjs(Query query, Date startPeriod, Date endPeriod, String mnemoCode) {
-        List<SendObj> sendObjList = new ArrayList<>();
-        List<Object[]> objList;
-        objList = query.list();
-        for (Object[] o : objList) {
-            SendObj sendObj = new SendObj(mnemoCode, startPeriod, endPeriod, Integer.parseInt(o[0].toString()), Integer.parseInt(o[1].toString()));
-            sendObjList.add(sendObj);
-        }
-        return sendObjList;
+    // todo переписать под hibernate - как пока хз
+    private static Query getQueryForUnEmplDismissed(Date startPeriod, Date endPeriod) throws Exception {
+        if (startPeriod != null && endPeriod != null) {
+            Query query = session.createSQLQuery(
+                    "SELECT st.rhd_region, COUNT (*) " +
+                            "FROM psn_order o " +
+                            "  JOIN psn_kpy kpy ON o.kpy_id = kpy.id " +
+                            "  JOIN psn_prev_work WORK ON kpy.id = WORK.kpy_id " +
+                            "  JOIN ref_dict_line puvLine ON WORK.puv_id = puvLine.id " +
+                            "  JOIN ref_dict puv ON puvLine.dict_id = puv.id " +
+                            "  JOIN ref_dict_line prkzLine ON o.prkz_id = prkzLine.id " +
+                            "  JOIN ref_dict prkz ON prkzLine.dict_id = prkz.id " +
+                            "  JOIN ref_dict_line stpLine ON o.status_id = stpLine.id " +
+                            "  JOIN ref_dict stp ON stpLine.dict_id = stp.id " +
+                            "  JOIN sys_talon st ON kpy.sys_id = st.sys_id " +
+                            "WHERE prkz.code = 'ПРКЗ' " +
+                            "      AND prkzLine.code = '12' " +
+                            "      AND stp.code = 'СТП' " +
+                            "      AND stpLine.code = '1' " +
+                            "      AND o.order_date >= :startPeriod " +
+                            "      AND o.order_date <= :endPeriod " +
+                            "      AND (WORK.puv_id IS NOT NULL " +
+                            "           OR (puv.code ='КНГ' " +
+                            "               AND puvLine.code IN ('17', '18', '19', '21', '22', '23', '24', '25', '26', '16', '28'))) " +
+                            "GROUP BY st.rhd_region;");
+            query.setDate("startPeriod", startPeriod);
+            query.setDate("endPeriod", endPeriod);
+            return query;
+        } else throw new Exception("startPeriod or endPeriod can be null!");
     }
-
 
     private static Query getQueryForUnEmplDateEnd(Date endPeriod) {
         String hql = createHQLStringForUnEmplDateEnd(endPeriod);
@@ -210,4 +232,16 @@ public class DataProcess {
             return query;
         } else throw new Exception("startPeriod can be null");
     }
+
+    private static List<SendObj> getSendObjs(Query query, Date startPeriod, Date endPeriod, String mnemoCode) {
+        List<SendObj> sendObjList = new ArrayList<>();
+        List<Object[]> objList;
+        objList = query.list();
+        for (Object[] o : objList) {
+            SendObj sendObj = new SendObj(mnemoCode, startPeriod, endPeriod, Integer.parseInt(o[0].toString()), Integer.parseInt(o[1].toString()));
+            sendObjList.add(sendObj);
+        }
+        return sendObjList;
+    }
+
 }

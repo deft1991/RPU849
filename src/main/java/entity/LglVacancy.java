@@ -4,12 +4,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "lgl_vacancy", schema = "public", catalog = "develop")
@@ -24,6 +23,7 @@ public class LglVacancy {
     private long version;
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "actual_date", nullable = true)
     private Date actualDate;
 
@@ -80,6 +80,7 @@ public class LglVacancy {
     private String phone;
 
     @Basic
+    @Temporal(TemporalType.DATE)
     @Column(name = "reg_date", nullable = true)
     private Date regDate;
 

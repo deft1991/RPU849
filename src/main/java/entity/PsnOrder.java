@@ -5,9 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,8 +24,8 @@ public class PsnOrder {
     private long version;
 
     @Basic
-    @Column(name = "cancel_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "cancel_date", nullable = true)
     private Date cancelDate;
 
     @Basic
@@ -39,13 +37,13 @@ public class PsnOrder {
     private BigDecimal duration;
 
     @Basic
-    @Column(name = "end_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "end_date", nullable = true)
     private Date endDate;
 
     @Basic
-    @Column(name = "form_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "form_date", nullable = true)
     private Date formDate;
 
     @Basic
@@ -57,13 +55,13 @@ public class PsnOrder {
     private Boolean isMoneyHelp;
 
     @Basic
-    @Column(name = "note_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "note_date", nullable = true)
     private Date noteDate;
 
     @Basic
-    @Column(name = "order_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "order_date", nullable = true)
     private Date orderDate;
 
     @Basic
@@ -71,8 +69,8 @@ public class PsnOrder {
     private String orderNum;
 
     @Basic
-    @Column(name = "reg_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "reg_date", nullable = true)
     private Date regDate;
 
     @Basic
@@ -84,8 +82,8 @@ public class PsnOrder {
     private Long stajLastYear;
 
     @Basic
-    @Column(name = "start_date", nullable = true)
     @Temporal(TemporalType.DATE)
+    @Column(name = "start_date", nullable = true)
     private Date startDate;
 
     @Basic
