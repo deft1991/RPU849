@@ -24,5 +24,6 @@
         <mapping class="entity.LglVacancyHistory"/>
         <mapping class="entity.LglVacancy"/>
         <mapping class="entity.PsnPrevWork"/>
+        <mapping class="entity.LglOrganization"/>
     </session-factory>
 </hibernate-configuration>

@@ -44,6 +44,18 @@ public class RefDictLine {
     @JoinColumn(name = "dict_id", insertable = false, updatable = false)
     private RefDict statusCode;
 
+    @ManyToOne(targetEntity = RefDict.class)
+    @JoinColumn(name = "dict_id", insertable = false, updatable = false)
+    private RefDict puvCode;
+
+    public RefDict getPuvCode() {
+        return puvCode;
+    }
+
+    public void setPuvCode(RefDict puvCode) {
+        this.puvCode = puvCode;
+    }
+
     public RefDict getPrkzCode() {
         return prkzCode;
     }

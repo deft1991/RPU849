@@ -73,7 +73,7 @@ public class PsnPrevWork {
     // Причина увольнения
     @ManyToOne(targetEntity = RefDictLine.class)
     @JoinColumn(name = "puv_id")
-    private RefDictLine dismissal;
+    private RefDictLine puvLine;
 
     @ManyToOne(targetEntity = PsnKpy.class)
     @JoinColumn(name = "kpy_id")
@@ -187,11 +187,11 @@ public class PsnPrevWork {
         this.lastWorkProgress = lastWorkProgress;
     }
 
-    public RefDictLine getDismissal() {
-        return dismissal;
+    public RefDictLine getPuvLine() {
+        return puvLine;
     }
 
-    public void setDismissal(RefDictLine dismissal) {
-        this.dismissal = dismissal;
+    public void setPuvLine(RefDictLine dismissal) {
+        this.puvLine = dismissal;
     }
 }
