@@ -288,6 +288,20 @@ public class DataProcess {
     //2.1
     private static Query getQueryForUnEmplDismissed(Date startPeriod, Date endPeriod) throws Exception {
         if (startPeriod != null && endPeriod != null) {
+//            Query query = session.createQuery("" +
+//                    "SELECT po.kpy.sysTalon.rhdRegion, COUNT (*)  " +
+//                    "from PsnOrder po join po.kpy.psnPrevWorkList work " +
+//                    "where " +
+//                    "po.prkz.prkzCode.code = 'ПРКЗ' " +
+//                    "and po.prkz.code = '12' " +
+//                    "and po.status.statusCode.code = 'СТП' " +
+//                    "and po.status.code = '1' " +
+//                    "and po.orderDate >= :startPeriod " +
+//                    "and po.orderDate <= :endPeriod " +
+//                    "and (work.puvLine.id is not null " +
+//                    "or (work.puvLine.code ='КНГ' " +
+//                    "and work.puvLine.puvCode.code in ('17', '18', '19', '21', '22', '23', '24', '25', '26', '16', '28'))) " +
+//                    "GROUP BY po.kpy.sysTalon.rhdRegion");
             Query query = session.createSQLQuery(
                     "SELECT st.rhd_region, COUNT (*) " +
                             "FROM psn_order o " +

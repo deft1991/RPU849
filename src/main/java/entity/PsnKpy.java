@@ -3,13 +3,16 @@ package entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "psn_kpy", schema = "public", catalog = "develop")
@@ -142,12 +145,23 @@ public class PsnKpy {
     @JoinColumn(name = "sys_id", referencedColumnName = "sys_id", insertable = false, updatable = false)
     private SysTalon sysTalon;
 
-    public SysTalon getTalon() {
+    @OneToMany(mappedBy = "psnKpy", fetch = FetchType.LAZY)
+    private List<PsnPrevWork> psnPrevWorkList;
+
+    public SysTalon getSysTalon() {
         return sysTalon;
     }
 
-    public void setTalon(SysTalon sysTalon) {
+    public void setSysTalon(SysTalon sysTalon) {
         this.sysTalon = sysTalon;
+    }
+
+    public List<PsnPrevWork> getPsnPrevWorkList() {
+        return psnPrevWorkList;
+    }
+
+    public void setPsnPrevWorkList(List<PsnPrevWork> psnPrevWorkList) {
+        this.psnPrevWorkList = psnPrevWorkList;
     }
 
     public long getId() {
