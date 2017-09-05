@@ -8,6 +8,8 @@
     <artifactId>RPU-849</artifactId>
     <version>1.0</version>
 
+    <packaging>war</packaging>
+
 
     <properties>
 
@@ -133,6 +135,12 @@
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warSourceDirectory>web</warSourceDirectory>
                 </configuration>
             </plugin>
         </plugins>

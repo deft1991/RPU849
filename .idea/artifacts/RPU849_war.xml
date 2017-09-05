@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="RPU849:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="RPU-849-1.0.war">
+      <element id="artifact" artifact-name="RPU849:war exploded" />
+    </root>
+  </artifact>
+</component>

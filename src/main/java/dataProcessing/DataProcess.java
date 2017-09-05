@@ -5,11 +5,13 @@ import hibernate.HibernateSessionFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DataProcess {
+public class DataProcess implements Closeable {
     private static Session session;
 
     private static void createBDConnection() {
@@ -19,7 +21,7 @@ public class DataProcess {
         System.out.println("Connection success");
     }
 
-    public static List<SendObj> getValuesForMnemoCode(Date startPeriod, Date endPeriod, String mnemoCode) throws Exception {
+    public List<SendObj> getValuesForMnemoCode(Date startPeriod, Date endPeriod, String mnemoCode) throws Exception {
         List<SendObj> sendObjList = null;
         createBDConnection();
         Query query = null;
@@ -259,4 +261,8 @@ public class DataProcess {
         return sendObjList;
     }
 
+    @Override
+    public void close() throws IOException {
+        if (session != null) session.close();
+    }
 }
