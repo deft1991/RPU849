@@ -26,10 +26,10 @@ public class HelloSoap implements WebserviceSEI {
     @Override
     public Document getDocuments(String dateFrom, String dateTo, String mnemoCode) {
         Document doc = new Document();
-        try {
+        try (DataProcess processor = new DataProcess()) {
             Date startPeriod = modifyDateFromClient(dateFrom);
             Date endPeriod = modifyDateFromClient(dateTo);
-            List<SendObj> docValues = DataProcess.getValuesForMnemoCode(startPeriod, endPeriod, mnemoCode);
+            List<SendObj> docValues = processor.getValuesForMnemoCode(startPeriod, endPeriod, mnemoCode);
             List<DocValues> forSend = new ArrayList<>();
             for (SendObj docValue : docValues) {
                 forSend.add(new DocValues(dateFrom, dateTo, mnemoCode, docValue.getRegion(), docValue.getCount()));
@@ -37,8 +37,6 @@ public class HelloSoap implements WebserviceSEI {
             doc.setDocValues(forSend);
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            HibernateSessionFactory.shutdown();
         }
         return doc;
     }
